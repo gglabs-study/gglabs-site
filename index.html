@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Golden Gate Learning Labs | GG Labs — Open R&D & Innovation Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --obsidian: #06080d;
+      --gold-light: #f6d37f;
+      --gold-mid: #d4a038;
+      --gold-dark: #9a6b17;
+      --silver-light: #f8fafc;
+      --silver-mid: #cbd5e1;
+      --sunset-glow: #ea580c;
+    }
+
+    body {
+      background-color: var(--obsidian);
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .text-gold-metallic {
+      background: linear-gradient(135deg, #fce39d 0%, #d4a038 45%, #f5d076 75%, #9e6d18 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-silver-metallic {
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gloss-card {
+      background: linear-gradient(145deg, rgba(20, 25, 38, 0.78) 0%, rgba(9, 12, 19, 0.92) 100%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(212, 160, 56, 0.22);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .gloss-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(246, 211, 127, 0.65);
+      box-shadow: 0 24px 60px rgba(212, 160, 56, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-gold-gloss {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f6d37f 0%, #d4a038 55%, #b58020 100%);
+      color: #06080d;
+      font-weight: 600;
+      box-shadow: 0 8px 28px rgba(212, 160, 56, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.65);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-gold-gloss:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 34px rgba(246, 211, 127, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.85);
+    }
+
+    .btn-gold-gloss::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+      transform: skewX(-22deg);
+      animation: shimmer 4.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 65% { left: -120%; }
+      100% { left: 180%; }
+    }
+
+    .ambient-glow {
+      background:
+        radial-gradient(circle at 80% 18%, rgba(234, 88, 12, 0.16) 0%, transparent 45%),
+        radial-gradient(circle at 18% 25%, rgba(212, 160, 56, 0.14) 0%, transparent 48%),
+        radial-gradient(circle at 50% 80%, rgba(148, 163, 184, 0.07) 0%, transparent 55%);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gold-hairline {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(246, 211, 127, 0.55), transparent);
+    }
+  </style>
+</head>
+<body class="ambient-glow selection:bg-amber-400/30 selection:text-amber-200">
+
+  <!-- Glossy Floating Navigation Bar -->
+  <header class="fixed top-0 inset-x-0 z-50 border-b border-amber-400/15 bg-[#06080d]/80 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-5 py-3.5 flex items-center justify-between">
+      <a href="#screen-hero" class="flex items-center gap-3 group">
+        <img src="logo.png" alt="GG Labs Logo" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';"
+             class="w-10 h-10 rounded-full object-cover ring-1 ring-amber-400/60 shadow-lg shadow-amber-500/20 group-hover:scale-105 transition" />
+        <div id="logo-fallback" style="display:none;"
+             class="w-10 h-10 rounded-full border border-amber-400/70 bg-gradient-to-br from-slate-900 to-black items-center justify-center font-display font-bold text-sm text-gold-metallic shadow-lg shadow-amber-500/20">
+          GG
+        </div>
+        <div>
+          <span class="font-display font-bold text-lg tracking-wide text-gold-metallic">GG LABS</span>
+          <span class="hidden md:inline-block text-[11px] uppercase tracking-[0.2em] text-slate-400 ml-2.5 border-l border-slate-700 pl-2.5">
+            Golden Gate Learning Labs
+          </span>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7 text-xs uppercase tracking-widest text-slate-300 font-medium">
+        <a href="#screen-pillars" class="hover:text-amber-300 transition">Pillars</a>
+        <a href="#screen-tracks" class="hover:text-amber-300 transition">R&amp;D Tracks</a>
+        <a href="#screen-projects" class="hover:text-amber-300 transition">Work &amp; Credentials</a>
+        <a href="#screen-studies" class="hover:text-amber-300 transition">Case Studies</a>
+        <a href="#screen-contribute" class="hover:text-amber-300 transition">Contribute</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/gglabs-study" target="_blank"
+           class="text-xs px-3.5 py-2 rounded-lg border border-slate-700/80 text-slate-200 hover:border-amber-400/60 hover:text-amber-300 transition">
+          GitHub Org ↗
+        </a>
+        <button onclick="openSubmitModal()" class="btn-gold-gloss text-xs px-4 py-2 rounded-lg">
+          Submit Work
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SCREEN 1: HERO & BRAND SHOWCASE -->
+  <section id="screen-hero" class="relative min-h-screen pt-28 pb-20 flex items-center">
+    <div class="max-w-6xl mx-auto px-5 w-full">
+      <div class="grid lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-7 reveal visible">
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-amber-400/30 bg-amber-400/5 text-amber-300 text-xs tracking-wider uppercase mb-6">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            Learn • Build • Prepare • Return • Grow
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl font-bold leading-[1.1] tracking-tight mb-6">
+            <span class="text-gold-metallic">GOLDEN GATE</span><br />
+            <span class="text-silver-metallic">LEARNING LABS</span>
+          </h1>
+
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
+            An open-source R&amp;D and collaborative learning hub welcoming <strong class="text-white">undergraduates</strong>, <strong class="text-white">independent researchers</strong>, and <strong class="text-white">industry professionals</strong> across <span class="text-amber-300">AI</span>, <span class="text-amber-300">Machine Learning</span>, <span class="text-amber-300">Neuro-Space</span>, and <span class="text-amber-300">Software Engineering</span> to share verified work, publish case studies, and build together.
+          </p>
+
+          <div class="flex flex-wrap gap-4 mb-10">
+            <a href="#screen-projects" class="btn-gold-gloss px-6 py-3 rounded-xl text-sm">
+              Explore Verified Work &amp; Projects
+            </a>
+            <a href="#screen-tracks" class="px-6 py-3 rounded-xl text-sm font-medium border border-slate-700 bg-slate-900/50 hover:border-amber-400/50 text-slate-200 transition">
+              Browse Open R&amp;D Tracks →
+            </a>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 max-w-lg pt-6 border-t border-slate-800/80">
+            <div>
+              <div class="font-display text-2xl font-bold text-gold-metallic">Open MIT</div>
+              <div class="text-xs text-slate-400">100% Public Knowledge</div>
+            </div>
+            <div>
+              <div class="font-display text-2xl font-bold text-silver-metallic">4+ Domains</div>
+              <div class="text-xs text-slate-400">AI, ML, Neuro-Space, iOS</div>
+            </div>
+            <div>
+              <div class="font-display text-2xl font-bold text-amber-400">Verified</div>
+              <div class="text-xs text-slate-400">Proof-of-Work Credentials</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 reveal visible">
+          <div class="gloss-card rounded-2xl p-4 relative overflow-hidden">
+            <div class="absolute -top-20 -right-20 w-56 h-56 bg-amber-500/20 blur-3xl rounded-full pointer-events-none"></div>
+            <img src="banner.png" alt="Golden Gate Learning Labs Banner"
+                 onerror="this.style.display='none'; document.getElementById('banner-fallback').style.display='block';"
+                 class="w-full h-64 sm:h-72 object-cover rounded-xl border border-amber-400/25 mb-4" />
+            <div id="banner-fallback" style="display:none;"
+                 class="w-full h-64 rounded-xl border border-amber-400/30 bg-gradient-to-br from-[#131826] via-[#090c14] to-[#1f1308] p-6 flex flex-col justify-between mb-4">
+              <div class="text-xs uppercase tracking-[0.25em] text-amber-400">A Brighter Tomorrow</div>
+              <div class="text-center my-auto">
+                <div class="font-display text-4xl font-bold text-gold-metallic">GG LABS</div>
+                <div class="text-xs tracking-[0.35em] text-slate-300 mt-1">LEARN • BUILD • GROW</div>
+              </div>
+              <div class="text-[11px] text-slate-400 flex justify-between">
+                <span>gglabs.study</span>
+                <span>Open R&amp;D Collective</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between px-1">
+              <div>
+                <p class="text-xs uppercase tracking-widest text-amber-400 font-semibold">Official Hub Domain</p>
+                <p class="text-sm font-medium text-slate-200">gglabs.study • github.com/gglabs-study</p>
+              </div>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                ● Open for PRs
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-hairline max-w-6xl mx-auto"></div>
+
+  <!-- SCREEN 2: FIVE PILLARS OF GROWTH -->
+  <section id="screen-pillars" class="py-24">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <p class="text-xs uppercase tracking-[0.25em] text-amber-400 font-semibold mb-2">Core Philosophy</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-silver-metallic mb-4">Five Pillars of Practical Growth</h2>
+        <p class="text-sm text-slate-400">Designed for students, researchers, and engineers returning to technology through measurable, open-source proof of skill.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 reveal">
+        <div class="gloss-card rounded-xl p-5">
+          <div class="text-xs font-mono text-amber-400 mb-2">01 / LEARN</div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">Deep Fundamentals</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Master core algorithms, neural architectures, and modern software patterns through open lab notes.</p>
+        </div>
+        <div class="gloss-card rounded-xl p-5">
+          <div class="text-xs font-mono text-amber-400 mb-2">02 / BUILD</div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">Ship Real Systems</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Turn theory into deployed full-stack apps, native iOS tools, and reproducible ML pipelines.</p>
+        </div>
+        <div class="gloss-card rounded-xl p-5">
+          <div class="text-xs font-mono text-amber-400 mb-2">03 / PREPARE</div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">Verified Evidence</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Document architecture decisions, benchmarks, and hackathon credentials publicly on GitHub.</p>
+        </div>
+        <div class="gloss-card rounded-xl p-5">
+          <div class="text-xs font-mono text-amber-400 mb-2">04 / RETURN</div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">Career Re-Entry</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Bridge career breaks with collaborative engineering sprints and peer-reviewed case studies.</p>
+        </div>
+        <div class="gloss-card rounded-xl p-5">
+          <div class="text-xs font-mono text-amber-400 mb-2">05 / GROW</div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">Mentor &amp; Scale</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Co-author open datasets, review community pull requests, and lead new research tracks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-hairline max-w-6xl mx-auto"></div>
+
+  <!-- SCREEN 3: INTERACTIVE MULTI-DOMAIN R&D TRACKS -->
+  <section id="screen-tracks" class="py-24">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 reveal">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-amber-400 font-semibold mb-2">Cross-Domain Collaboration</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-silver-metallic">Open Research &amp; Skillset Tracks</h2>
+        </div>
+
+        <div class="flex flex-wrap gap-2" id="track-filters">
+          <button data-filter="all" class="filter-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-400 text-slate-950 transition">All Tracks</button>
+          <button data-filter="ai" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium border border-slate-700 text-slate-300 hover:border-amber-400/50 transition">AI &amp; Agents</button>
+          <button data-filter="ml" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium border border-slate-700 text-slate-300 hover:border-amber-400/50 transition">Machine Learning</button>
+          <button data-filter="neuro" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium border border-slate-700 text-slate-300 hover:border-amber-400/50 transition">Neuro-Space</button>
+          <button data-filter="ios" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium border border-slate-700 text-slate-300 hover:border-amber-400/50 transition">iOS &amp; Cloud</button>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 reveal" id="tracks-grid">
+        <div class="gloss-card rounded-2xl p-6 track-item" data-category="ai">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-semibold px-2.5 py-1 rounded bg-amber-400/10 text-amber-300 border border-amber-400/30">Artificial Intelligence</span>
+            <span class="text-xs text-slate-400">Open Track</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Agentic Systems, Local RAG &amp; Evaluation</h3>
+          <p class="text-sm text-slate-300 mb-4">Building deterministic multi-agent workflows, grounded retrieval pipelines, and transparent AI safety evaluations.</p>
+          <div class="text-xs text-slate-400">Skills: Python • FastAPI • Vector Search • Prompt &amp; Eval Engineering</div>
+        </div>
+
+        <div class="gloss-card rounded-2xl p-6 track-item" data-category="ml">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-semibold px-2.5 py-1 rounded bg-sky-400/10 text-sky-300 border border-sky-400/30">Machine Learning</span>
+            <span class="text-xs text-slate-400">Open Track</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Quantitative Time-Series &amp; Edge Core ML</h3>
+          <p class="text-sm text-slate-300 mb-4">Volatility forecasting (GARCH), statistical anomaly detection, and low-latency on-device inference models.</p>
+          <div class="text-xs text-slate-400">Skills: PyTorch • Scikit-Learn • Core ML • Quantitative Modeling</div>
+        </div>
+
+        <div class="gloss-card rounded-2xl p-6 track-item" data-category="neuro">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-400/10 text-emerald-300 border border-emerald-400/30">Neuro-Space &amp; Bio-Systems</span>
+            <span class="text-xs text-slate-400">Open Track</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Space Biology Telemetry &amp; Cognitive Systems</h3>
+          <p class="text-sm text-slate-300 mb-4">Analyzing open NASA GeneLab/POWER datasets, closed-loop life support, and neuro-ergonomic human factors.</p>
+          <div class="text-xs text-slate-400">Skills: Open Space Data • Biosignal Processing • Simulation Modeling</div>
+        </div>
+
+        <div class="gloss-card rounded-2xl p-6 track-item" data-category="ios">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-semibold px-2.5 py-1 rounded bg-purple-400/10 text-purple-300 border border-purple-400/30">iOS &amp; Full-Stack Cloud</span>
+            <span class="text-xs text-slate-400">Open Track</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">SwiftUI Architecture &amp; Microservices</h3>
+          <p class="text-sm text-slate-300 mb-4">Production-grade Apple ecosystem applications backed by containerized Python/React cloud infrastructure.</p>
+          <div class="text-xs text-slate-400">Skills: Swift • SwiftUI • React • TypeScript • Docker</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-hairline max-w-6xl mx-auto"></div>
+
+  <!-- SCREEN 4: VERIFIED WORK & CREDENTIALS -->
+  <section id="screen-projects" class="py-24">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="mb-12 reveal">
+        <p class="text-xs uppercase tracking-[0.25em] text-amber-400 font-semibold mb-2">Proof of Work &amp; Authentication</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-silver-metallic mb-3">Featured Projects &amp; Verified Credentials</h2>
+        <p class="text-sm text-slate-400 max-w-2xl">Every project includes public source code, live interactive deployments, and verifiable competition or academic authentication.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-7 reveal">
+        <div class="gloss-card rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-400/30">
+                ✓ NASA Space Apps Challenge 2026
+              </span>
+              <span class="text-xs font-mono text-amber-300">ID: LifeBeyondEarth Research Core</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-3">LifeBeyondEarth — Outpost Bio-Dome Simulator</h3>
+            <p class="text-sm text-slate-300 leading-relaxed mb-5">
+              Full-stack lunar and Martian agricultural survival simulator integrating NASA POWER climate data, Exoplanet Archive, GeneLab spaceflight plant biology, and Canadian Space Agency (CSA) open telemetry.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex flex-wrap gap-2 mb-5 text-[11px] text-slate-300">
+              <span class="px-2.5 py-1 rounded bg-slate-800/90 border border-slate-700">React + TypeScript</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800/90 border border-slate-700">FastAPI + Python</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800/90 border border-slate-700">NASA Open Data</span>
+            </div>
+            <div class="flex flex-wrap gap-4 pt-4 border-t border-slate-800 text-xs font-semibold">
+              <a href="https://lifebeyondearth-public.vercel.app" target="_blank" class="text-amber-300 hover:text-amber-200">Live Web App ↗</a>
+              <a href="https://lifebeyondearth.onrender.com/docs" target="_blank" class="text-amber-300 hover:text-amber-200">Swagger API ↗</a>
+              <a href="https://github.com/mandeep-iOS/LifeBeyondEarth" target="_blank" class="text-slate-300 hover:text-white">GitHub Source ↗</a>
+              <a href="https://youtu.be/Gf19hmTQ75Y" target="_blank" class="text-slate-300 hover:text-white">30s Demo Video ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="gloss-card rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-400/15 text-amber-300 border border-amber-400/30">
+                ✓ Verified Open R&amp;D Build
+              </span>
+              <span class="text-xs font-mono text-slate-400">Quant ML + Native iOS</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-3">Financial Risk &amp; Volatility Monitor</h3>
+            <p class="text-sm text-slate-300 leading-relaxed mb-5">
+              Native SwiftUI risk intelligence client connected to a Python/FastAPI quantitative engine running GARCH volatility modeling, Value-at-Risk (VaR) stress scenarios, and real-time market regime tracking.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex flex-wrap gap-2 mb-5 text-[11px] text-slate-300">
+              <span class="px-2.5 py-1 rounded bg-slate-800/90 border border-slate-700">SwiftUI / iOS</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800/90 border border-slate-700">GARCH / Econometrics</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800/90 border border-slate-700">MIT Licensed</span>
+            </div>
+            <div class="flex flex-wrap gap-4 pt-4 border-t border-slate-800 text-xs font-semibold">
+              <a href="https://github.com/mandeep-iOS/financial-risk-volatility-monitor" target="_blank" class="text-amber-300 hover:text-amber-200">GitHub Repository ↗</a>
+              <a href="https://github.com/gglabs-study" target="_blank" class="text-slate-300 hover:text-white">GG Labs Organization ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-hairline max-w-6xl mx-auto"></div>
+
+  <!-- SCREEN 5: CASE STUDIES & RESEARCH NOTES -->
+  <section id="screen-studies" class="py-24">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="mb-12 reveal">
+        <p class="text-xs uppercase tracking-[0.25em] text-amber-400 font-semibold mb-2">Reproducible Research</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-silver-metallic">Case Studies &amp; Technical Notes</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 reveal">
+        <article class="gloss-card rounded-2xl p-6">
+          <div class="text-xs text-amber-400 font-mono mb-2">CASE STUDY 01 • SPACE &amp; BIO-ML</div>
+          <h3 class="text-lg font-bold text-white mb-2">Deterministic Bio-Dome Survival Heuristics</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Synthesizing multi-planet radiation, thermal variance, and crop yield data from NASA open repositories into real-time habitat simulation rules.
+          </p>
+          <a href="https://github.com/mandeep-iOS/LifeBeyondEarth" target="_blank" class="text-xs font-semibold text-amber-300 hover:underline">Read Architecture Docs →</a>
+        </article>
+
+        <article class="gloss-card rounded-2xl p-6">
+          <div class="text-xs text-amber-400 font-mono mb-2">CASE STUDY 02 • EDGE AI</div>
+          <h3 class="text-lg font-bold text-white mb-2">Privacy-First On-Device Neural Retrieval</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Evaluating quantized local models, Swift Concurrency pipelines, and zero-server semantic search on Apple Silicon hardware.
+          </p>
+          <a href="https://github.com/mandeep-iOS" target="_blank" class="text-xs font-semibold text-amber-300 hover:underline">Explore Benchmarks →</a>
+        </article>
+
+        <article class="gloss-card rounded-2xl p-6">
+          <div class="text-xs text-amber-400 font-mono mb-2">CASE STUDY 03 • OPEN EDUCATION</div>
+          <h3 class="text-lg font-bold text-white mb-2">Open-Source Proof of Skill for Career Re-Entry</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            A structured blueprint helping undergraduates and returning engineers convert public pull requests into verifiable engineering portfolios.
+          </p>
+          <a href="https://github.com/gglabs-study/gglabs-site" target="_blank" class="text-xs font-semibold text-amber-300 hover:underline">View Playbook →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-hairline max-w-6xl mx-auto"></div>
+
+  <!-- SCREEN 6: COMMUNITY CONTRIBUTION & OPEN CALL -->
+  <section id="screen-contribute" class="py-24">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="gloss-card rounded-3xl p-8 sm:p-12 relative overflow-hidden reveal">
+        <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-amber-500/15 blur-3xl rounded-full pointer-events-none"></div>
+        <div class="grid lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7">
+            <p class="text-xs uppercase tracking-[0.25em] text-amber-400 font-semibold mb-2">Open Call for Builders &amp; Researchers</p>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Contribute Your Skillset to GG Labs</h2>
+            <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
+              Whether you are an <strong class="text-white">undergraduate student</strong> building your first open-source project, an <strong class="text-white">independent researcher</strong> exploring AI or Neuro-Space, or an <strong class="text-white">experienced professional</strong> mentoring others—publish your case study or add your verified project to <span class="text-amber-300">gglabs.study</span>.
+            </p>
+            <div class="grid sm:grid-cols-3 gap-3 text-xs text-slate-300">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <strong class="text-amber-300 block mb-0.5">1. Fork &amp; Build</strong>
+                Open a PR on <code class="text-slate-200">gglabs-study</code>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <strong class="text-amber-300 block mb-0.5">2. Document &amp; Verify</strong>
+                Attach live demo &amp; dataset notes
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <strong class="text-amber-300 block mb-0.5">3. Get Featured</strong>
+                Listed on <code class="text-slate-200">gglabs.study</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 flex flex-col gap-3.5">
+            <button onclick="openSubmitModal()" class="btn-gold-gloss w-full py-3.5 px-6 rounded-xl text-sm text-center">
+              Submit a Project or Case Study
+            </button>
+            <a href="https://github.com/gglabs-study/gglabs-site" target="_blank"
+               class="w-full py-3.5 px-6 rounded-xl text-sm font-medium text-center border border-slate-700 bg-slate-900/70 hover:border-amber-400/60 text-slate-200 transition">
+              Contribute via GitHub Pull Request ↗
+            </a>
+            <div class="text-center text-xs text-slate-400 pt-2">
+              Research: <a href="mailto:research@gglabs.study" class="text-amber-300 hover:underline">research@gglabs.study</a> •
+              Community: <a href="mailto:contribute@gglabs.study" class="text-amber-300 hover:underline">contribute@gglabs.study</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/80 py-10 text-xs text-slate-400">
+    <div class="max-w-6xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <span class="font-display font-bold text-gold-metallic text-sm">GG LABS</span>
+        <span>• Golden Gate Learning Labs (gglabs.study) • MIT Open License</span>
+      </div>
+      <div class="flex gap-5">
+        <a href="https://github.com/gglabs-study" target="_blank" class="hover:text-amber-300">GitHub</a>
+        <a href="mailto:hello@gglabs.study" class="hover:text-amber-300">hello@gglabs.study</a>
+        <a href="https://github.com/mandeep-iOS" target="_blank" class="hover:text-amber-300">Founder (@mandeep-iOS)</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- INTERACTIVE CONTRIBUTION MODAL -->
+  <div id="submit-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="gloss-card rounded-2xl max-w-md w-full p-6 relative">
+      <button onclick="closeSubmitModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">✕</button>
+      <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">GG Labs Open Submission</span>
+      <h3 class="text-xl font-bold text-white mt-1 mb-2">Share Your Project or Research</h3>
+      <p class="text-xs text-slate-400 mb-4">Generate a pre-filled submission email directly to <strong class="text-amber-300">contribute@gglabs.study</strong> or open a GitHub issue.</p>
+
+      <form onsubmit="handleSubmission(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 mb-1">Your Name &amp; Role (e.g., Undergrad, Researcher, Engineer)</label>
+          <input id="sub-name" required type="text" placeholder="Alex Rivera — ML Undergraduate"
+                 class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white focus:border-amber-400 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1">Domain Track</label>
+          <select id="sub-track" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white focus:border-amber-400 focus:outline-none">
+            <option>Artificial Intelligence &amp; Agents</option>
+            <option>Machine Learning &amp; Quantitative Systems</option>
+            <option>Neuro-Space &amp; Bio-Systems</option>
+            <option>iOS / Full-Stack Cloud Engineering</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1">GitHub Repo / Live Demo / Credential URL</label>
+          <input id="sub-url" required type="url" placeholder="https://github.com/..."
+                 class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white focus:border-amber-400 focus:outline-none" />
+        </div>
+        <button type="submit" class="btn-gold-gloss w-full py-2.5 rounded-lg text-xs mt-2">
+          Send to contribute@gglabs.study ↗
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const trackItems = document.querySelectorAll('.track-item');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-amber-400', 'text-slate-950', 'font-semibold');
+          b.classList.add('border', 'border-slate-700', 'text-slate-300');
+        });
+        btn.classList.add('bg-amber-400', 'text-slate-950', 'font-semibold');
+        btn.classList.remove('border', 'border-slate-700', 'text-slate-300');
+
+        const filter = btn.getAttribute('data-filter');
+        trackItems.forEach(item => {
+          item.style.display = (filter === 'all' || item.getAttribute('data-category') === filter) ? 'block' : 'none';
+        });
+      });
+    });
+
+    function openSubmitModal() {
+      const modal = document.getElementById('submit-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeSubmitModal() {
+      const modal = document.getElementById('submit-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function handleSubmission(e) {
+      e.preventDefault();
+      const name = document.getElementById('sub-name').value;
+      const track = document.getElementById('sub-track').value;
+      const url = document.getElementById('sub-url').value;
+      const subject = encodeURIComponent(`[GG Labs Submission] ${track} — ${name}`);
+      const body = encodeURIComponent(`Contributor: ${name}
+Track: ${track}
+Project / Credential URL: ${url}
+
+Submitted via gglabs.study`);
+      window.location.href = `mailto:contribute@gglabs.study?subject=${subject}&body=${body}`;
+      closeSubmitModal();
+    }
+  </script>
+</body>
+</html>
