@@ -1,3 +1,13 @@
+Here is your updated **`index.html`** with the redesigned header while keeping every other section intact:
+
+* **Full-Width Left & Right Spacing:** Logo and **GG LABS | GOLDEN GATE LEARNING LABS** sit cleanly on the far left (`px-6 lg:px-12`), separated generously from the navigation options on the right.
+* **Taller, Modern Header Bar (`h-20` / `80px`):** Larger circular `logo.jpg` emblem (`w-12 h-12`) with a slow ambient golden ring glow, subtle metallic shimmer sweep across the header, and a crisp golden bottom border.
+* **Removed `GitHub Org` and `Submit Work` from Header:** Cleanly keeps only the 5 core navigation links (**Pillars**, **R&D Tracks**, **Work & Credentials**, **Case Studies**, **Contribute**).
+* **Reduced Option Font Size (`10.5px` / `-2px` smaller) + Glossy Grey Selection:** Single-line, crisp navigation pills with a smooth **glossy silver-grey glass highlight** on hover and active click.
+
+Copy and replace your entire `index.html` with the code below and commit:
+
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth dark" style="background-color: #06080d; color-scheme: dark;">
 <head>
@@ -51,6 +61,100 @@
       background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 45%, #cbd5e1 78%, #94a3b8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+
+    /* Modern Professional Header with Slow Ambient Shimmer & Golden Border */
+    .gg-header {
+      background: linear-gradient(180deg, rgba(11, 14, 22, 0.96) 0%, rgba(6, 8, 13, 0.92) 100%);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-bottom: 1px solid rgba(246, 211, 127, 0.42);
+      box-shadow:
+        0 14px 40px rgba(0, 0, 0, 0.88),
+        0 1px 0 rgba(252, 227, 157, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      animation: headerEntrance 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .gg-header::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: -35%;
+      width: 35%;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(255, 240, 189, 0.95), rgba(212, 160, 56, 0.85), transparent);
+      animation: headerGoldSweep 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes headerEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(-14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes headerGoldSweep {
+      0%, 15% { left: -35%; opacity: 0; }
+      35% { opacity: 1; }
+      75% { opacity: 1; }
+      95%, 100% { left: 105%; opacity: 0; }
+    }
+
+    @keyframes slowLogoPulse {
+      0%, 100% {
+        box-shadow: 0 0 16px rgba(212, 160, 56, 0.38), inset 0 0 8px rgba(252, 227, 157, 0.25);
+        border-color: rgba(246, 211, 127, 0.78);
+      }
+      50% {
+        box-shadow: 0 0 26px rgba(252, 227, 157, 0.65), inset 0 0 12px rgba(252, 227, 157, 0.4);
+        border-color: rgba(255, 243, 204, 0.98);
+      }
+    }
+
+    .logo-ring-animate {
+      animation: slowLogoPulse 5.5s ease-in-out infinite;
+    }
+
+    /* Header Navigation Options (-2px font size, single-line, glossy grey selection) */
+    .nav-option {
+      position: relative;
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #e2e8f0;
+      white-space: nowrap;
+      padding: 0.55rem 0.95rem;
+      border-radius: 9999px;
+      border: 1px solid transparent;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .nav-option:hover,
+    .nav-option:focus-visible,
+    .nav-option.active-nav {
+      color: #ffffff;
+      background: linear-gradient(145deg, rgba(148, 163, 184, 0.28) 0%, rgba(71, 85, 105, 0.34) 50%, rgba(30, 41, 59, 0.55) 100%);
+      border-color: rgba(226, 232, 240, 0.45);
+      box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.38),
+        inset 0 -1px 0 rgba(148, 163, 184, 0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transform: translateY(-1px);
+    }
+
+    .nav-option:active {
+      transform: translateY(0) scale(0.98);
+      background: linear-gradient(145deg, rgba(203, 213, 225, 0.36) 0%, rgba(100, 116, 139, 0.42) 100%);
+      border-color: rgba(248, 250, 252, 0.65);
     }
 
     /* Glossy Dark Card with Golden Rim */
@@ -173,47 +277,39 @@
 </head>
 <body class="selection:bg-amber-400/30 selection:text-amber-200">
 
-  <!-- Glossy Floating Navigation Bar -->
-  <header class="fixed top-0 inset-x-0 z-50 border-b border-amber-300/30 bg-[#06080d]/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.85)]">
-    <div class="max-w-6xl mx-auto px-5 py-3.5 flex items-center justify-between">
-      <a href="#screen-hero" class="flex items-center gap-3 group">
+  <!-- Modern Full-Width Glossy Header -->
+  <header class="gg-header fixed top-0 inset-x-0 z-50 h-20 flex items-center">
+    <div class="w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex items-center justify-between gap-8">
+      <!-- Left: Brand Logo & Title -->
+      <a href="#screen-hero" class="flex items-center gap-4 group shrink-0">
         <img src="logo.jpg" alt="GG Labs Logo"
              onerror="if(this.src.indexOf('logo.png')===-1){this.src='logo.png';}else{this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';}"
-             class="w-11 h-11 rounded-full object-cover border-2 border-amber-300/80 shadow-[0_0_18px_rgba(212,160,56,0.45)] group-hover:scale-105 transition" />
+             class="logo-ring-animate w-12 h-12 rounded-full object-cover border-2 border-amber-300/85 group-hover:scale-105 transition duration-500" />
         <div id="logo-fallback" style="display:none;"
-             class="w-11 h-11 rounded-full border-2 border-amber-300/80 bg-gradient-to-br from-slate-900 to-black items-center justify-center font-display font-bold text-sm text-gold-metallic shadow-lg shadow-amber-500/20">
+             class="logo-ring-animate w-12 h-12 rounded-full border-2 border-amber-300/85 bg-gradient-to-br from-slate-900 to-black items-center justify-center font-display font-bold text-base text-gold-metallic">
           GG
         </div>
-        <div>
-          <span class="font-display font-bold text-lg tracking-wide text-gold-metallic">GG LABS</span>
-          <span class="hidden md:inline-block text-[11px] uppercase tracking-[0.2em] text-slate-300 ml-2.5 border-l border-amber-400/30 pl-2.5">
+        <div class="flex flex-col sm:flex-row sm:items-center">
+          <span class="font-display font-bold text-xl tracking-wider text-gold-metallic leading-none">GG LABS</span>
+          <span class="hidden sm:inline-block text-[11px] uppercase tracking-[0.22em] text-slate-300 sm:ml-3.5 sm:border-l sm:border-amber-300/35 sm:pl-3.5 leading-none">
             Golden Gate Learning Labs
           </span>
         </div>
       </a>
 
-      <nav class="hidden lg:flex items-center gap-7 text-xs uppercase tracking-widest text-slate-200 font-medium">
-        <a href="#screen-pillars" class="hover:text-amber-300 transition">Pillars</a>
-        <a href="#screen-tracks" class="hover:text-amber-300 transition">R&amp;D Tracks</a>
-        <a href="#screen-projects" class="hover:text-amber-300 transition">Work &amp; Credentials</a>
-        <a href="#screen-studies" class="hover:text-amber-300 transition">Case Studies</a>
-        <a href="#screen-contribute" class="hover:text-amber-300 transition">Contribute</a>
+      <!-- Right: Clean Navigation Options (with generous spacing from brand title) -->
+      <nav class="hidden md:flex items-center gap-2 lg:gap-3.5 ml-auto" aria-label="Primary Navigation">
+        <a href="#screen-pillars" class="nav-option">Pillars</a>
+        <a href="#screen-tracks" class="nav-option">R&amp;D Tracks</a>
+        <a href="#screen-projects" class="nav-option">Work &amp; Credentials</a>
+        <a href="#screen-studies" class="nav-option">Case Studies</a>
+        <a href="#screen-contribute" class="nav-option">Contribute</a>
       </nav>
-
-      <div class="flex items-center gap-3">
-        <a href="https://github.com/gglabs-study" target="_blank"
-           class="gold-pill-border text-xs px-3.5 py-2 rounded-full text-slate-100 hover:text-amber-200 transition">
-          GitHub Org ↗
-        </a>
-        <button onclick="openSubmitModal()" class="btn-gold-gloss text-xs px-4 py-2 rounded-full">
-          Submit Work
-        </button>
-      </div>
     </div>
   </header>
 
   <!-- SCREEN 1: HERO & BRAND SHOWCASE -->
-  <section id="screen-hero" class="relative min-h-screen pt-28 pb-20 flex items-center">
+  <section id="screen-hero" class="relative min-h-screen pt-32 pb-20 flex items-center">
     <div class="max-w-6xl mx-auto px-5 w-full">
       <div class="grid lg:grid-cols-12 gap-10 items-center">
         <div class="lg:col-span-7 reveal visible">
@@ -632,6 +728,15 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+    // Glossy grey active state for header options on click & scroll
+    const navOptions = document.querySelectorAll('.nav-option');
+    navOptions.forEach(link => {
+      link.addEventListener('click', () => {
+        navOptions.forEach(n => n.classList.remove('active-nav'));
+        link.classList.add('active-nav');
+      });
+    });
+
     const filterButtons = document.querySelectorAll('.filter-btn');
     const trackItems = document.querySelectorAll('.track-item');
 
@@ -672,3 +777,5 @@
   </script>
 </body>
 </html>
+
+```
